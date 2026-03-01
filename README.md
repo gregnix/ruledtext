@@ -108,8 +108,6 @@ ruledtext/
     manual.md                 API reference manual (25 procs)
     technical.md              Architecture and internals
   README.md                   This file
-  CHANGES.md                  Version history
-  PRUEFUNG.md                 Review and quality assessment
 ```
 
 ## API Overview
@@ -135,67 +133,9 @@ parameters, examples, configuration defaults, and design decisions.
 See `doc/technical.md` for architecture, coordinate systems,
 pool management, and implementation details.
 
-## Tests
-
-```bash
-cd test
-wish test_ruledtext.tcl    ;# 43 tests
-wish test_pdf.tcl          ;# 14 tests
-```
-
-See `test/README.md` for details.
 
 ## Requirements
 
 - **Tcl/Tk 8.6.9+** (for `-insertunfocussed`, `$txt sync`)
 - **pdf4tcl 0.9+** (optional, for PDF export via `ruledtext::pdf`)
 
-## Installation
-
-### As Tcl Module (Recommended)
-
-```tcl
-# Add module path
-tcl::tm::path add /path/to/ruledtext/lib
-
-# Load module
-package require ruledtext 1.1
-```
-
-### Direct Source
-
-```tcl
-source -encoding utf-8 /path/to/ruledtext/lib/ruledtext-1.1.tm
-```
-
-## Documentation
-
-- **[README.md](README.md)** — Overview and quick start
-- **[doc/manual.md](doc/manual.md)** — Complete API reference (25 procedures)
-- **[doc/technical.md](doc/technical.md)** — Architecture and internals
-- **[CHANGES.md](CHANGES.md)** — Version history
-- **[test/README.md](test/README.md)** — Test documentation
-
-## License
-
-MIT License — see [LICENSE](LICENSE) file for details.
-
-## Version History
-
-See `CHANGES.md` for detailed changelog.
-
-**Version 1.1** (2026-03-01):
-- Right margin line (toggleRMargin, setRMarginX, setRMarginColor)
-- Line range (setLineRange, setVLineRange)
-- Line pattern (setLinePattern) with cyclic colors and gaps
-- Margin customization API (setMarginX, setMarginColor)
-- Readonly select mode (keyboard blocked, mouse selection)
-- vgrid shrink cleanup
-- DPI-aware fontsize conversion for PDF
-- PDF helper functions in `ruledtext::pdf::` namespace
-- 9 demos, 57 tests
-
-**Version 1.0** (Initial Release):
-- Horizontal/vertical lines, margin, 11 presets
-- Tab synchronization, readonly mode, PDF export
-- Per-instance configuration, dynamic pool growth
