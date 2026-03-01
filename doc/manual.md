@@ -186,8 +186,10 @@ ruledtext toggleMargin $path $bool
 ```
 
 Shows or hides the vertical margin line (the red line on
-notebook paper). Also adjusts left `padx` of the text widget:
+notebook paper). Also adjusts `padx` of the text widget:
 margin on = `marginx + 12`, margin off = `12`.
+Note: Tk's `text -padx` is symmetric (same value left and right),
+so the margin affects both sides equally.
 
 ```tcl
 ruledtext toggleMargin .ed 1    ;# show margin
