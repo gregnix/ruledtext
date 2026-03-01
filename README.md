@@ -10,25 +10,6 @@ Single Tcl module (`ruledtext-1.1.tm`) for creating text widgets
 with horizontal lines, vertical lines, left/right margin, paper
 presets, tab sync, readonly mode, and named fonts.
 
-## Quick Start
-
-```tcl
-tcl::tm::path add /path/to/ruledtext/lib
-package require ruledtext 1.1
-
-ruledtext create .ed
-pack .ed -fill both -expand 1
-
-set txt [ruledtext textwidget .ed]
-$txt insert end "Hello World\n"
-```
-
-Or direct source (still works):
-
-```tcl
-source -encoding utf-8 ruledtext-1.1.tm
-ruledtext create .ed
-```
 
 ## Features
 
@@ -54,7 +35,6 @@ ruledtext create .ed
 Horizontal spacing from `font metrics -linespace`,
 factor 1.5 positions lines between text rows.
 Uses namespace ensemble for clean API.
-No TclOO, no dependencies beyond Tk.
 
 ## Usage Examples
 
@@ -80,34 +60,6 @@ ruledtext insertText .ed end "Programmatic text\n"
 # PDF export
 package require ruledtext::pdf 1.1
 ruledtext exportPDF .ed "output.pdf" -paper a4 -title "Document"
-```
-
-## Files
-
-```
-ruledtext/
-  lib/
-    ruledtext-1.1.tm         Main module (945 lines)
-    ruledtext/
-      pdf-1.1.tm             PDF export module (399 lines)
-  demos/
-    demo-presets.tcl          All 11 presets with tab example
-    demo-split.tcl            Two instances, readonly, insertunfocussed
-    demo-tablines.tcl         Tab stops aligned with vertical lines
-    demo-pdf-export.tcl       PDF export with all visual settings
-    demo-readonly-select.tcl  Readonly select mode
-    demo-vgrid-resize.tcl     VGrid resize behavior
-    demo-font-metrics.tcl     Font metrics and line spacing
-    demo-margin-toggle.tcl    Left/right margin, line range, pattern
-    demo-log-viewer.tcl       Log viewer with readonly select mode
-  test/
-    test_ruledtext.tcl        Unit tests (43 tests)
-    test_pdf.tcl              PDF export tests (14 tests)
-    README.md                 Test documentation
-  doc/
-    manual.md                 API reference manual (25 procs)
-    technical.md              Architecture and internals
-  README.md                   This file
 ```
 
 ## API Overview
