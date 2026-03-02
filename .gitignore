@@ -1,0 +1,65 @@
+# Backup files
+**/.bak/
+*.bak
+*.backup
+
+# Temporary files
+*.tmp
+*.temp
+*~
+
+# Log files
+*.log
+logs/
+
+# Build and cache directories
+build/
+cache/
+*.cache
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE and editor files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Tcl/Tk specific
+*.tclc
+*.tcl~
+*.tcl.bak
+
+# Database files (if not needed in repo)
+*.db
+*.sqlite
+*.sqlite3
+
+# PDF files (if generated)
+*.pdf
+
+# Image files (if generated)
+*.png
+*.jpg
+*.jpeg
+*.gif
+*.bmp
+
+# Archive files (if generated)
+*.zip
+*.tar
+*.tar.gz
+
+# Executable files
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Test output
+test_output/
+*.test.log
