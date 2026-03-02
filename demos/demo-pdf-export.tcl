@@ -26,6 +26,8 @@ ttk::combobox .tb1.sel -state readonly -width 12 \
 
 ttk::button .tb1.apply -text "Apply" -command {
     ruledtext preset .ed [.tb1.sel get]
+    set ::lmargin_on $::ruledtext::state(.ed,cfg,showmargin)
+    set ::rmargin_on $::ruledtext::state(.ed,cfg,showrmargin)
     .st configure -text "Preset: [.tb1.sel get]"
 }
 bind .tb1.sel <<ComboboxSelected>> { .tb1.apply invoke }
@@ -70,34 +72,30 @@ ttk::button .tb2.vinset -text "Inset 20" -command {
 ttk::separator .tb2.sep2 -orient vertical
 
 ttk::label .tb2.l3 -text "L-Margin:" -font {TkDefaultFont 9 bold}
-ttk::button .tb2.mon -text "On" -command {
-    ruledtext toggleMargin .ed 1
-    .st configure -text "Left margin: ON"
+ttk::checkbutton .tb2.lmcb -text "Show" \
+    -variable ::lmargin_on -command {
+    ruledtext toggleMargin .ed $::lmargin_on
+    .st configure -text "Left margin: [expr {$::lmargin_on ? {ON} : {OFF}}]"
 }
-ttk::button .tb2.moff -text "Off" -command {
-    ruledtext toggleMargin .ed 0
-    .st configure -text "Left margin: OFF"
-}
+set ::lmargin_on 1
 
 ttk::separator .tb2.sep3 -orient vertical
 
 ttk::label .tb2.l4 -text "R-Margin:" -font {TkDefaultFont 9 bold}
-ttk::button .tb2.rmon -text "On" -command {
-    ruledtext toggleRMargin .ed 1
-    .st configure -text "Right margin: ON"
+ttk::checkbutton .tb2.rmcb -text "Show" \
+    -variable ::rmargin_on -command {
+    ruledtext toggleRMargin .ed $::rmargin_on
+    .st configure -text "Right margin: [expr {$::rmargin_on ? {ON} : {OFF}}]"
 }
-ttk::button .tb2.rmoff -text "Off" -command {
-    ruledtext toggleRMargin .ed 0
-    .st configure -text "Right margin: OFF"
-}
+set ::rmargin_on 0
 
 pack .tb2.l .tb2.hfull .tb2.hmargin -side left -padx 2
 pack .tb2.sep1 -side left -padx 6 -fill y -pady 2
 pack .tb2.l2 .tb2.vfull .tb2.vinset -side left -padx 2
 pack .tb2.sep2 -side left -padx 6 -fill y -pady 2
-pack .tb2.l3 .tb2.mon .tb2.moff -side left -padx 2
+pack .tb2.l3 .tb2.lmcb -side left -padx 2
 pack .tb2.sep3 -side left -padx 6 -fill y -pady 2
-pack .tb2.l4 .tb2.rmon .tb2.rmoff -side left -padx 2
+pack .tb2.l4 .tb2.rmcb -side left -padx 2
 
 # -- Toolbar row 3: Line pattern --
 ttk::frame .tb3
@@ -196,5 +194,7 @@ proc exportPDF {} {
 
 # Apply initial preset
 ruledtext preset .ed college
+set ::lmargin_on $::ruledtext::state(.ed,cfg,showmargin)
+set ::rmargin_on $::ruledtext::state(.ed,cfg,showrmargin)
 
 focus $txt
