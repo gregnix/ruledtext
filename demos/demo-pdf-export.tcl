@@ -159,9 +159,9 @@ $txt insert end "  4. Compare PDF with widget on screen\n\n"
 
 $txt insert end "Tab example (apply 'ledger' first):\n"
 $txt insert end "Date\tDescription\tDebit\tCredit\n"
-$txt insert end "01.03.\tOffice supplies\t45.00\t\n"
+$txt insert end "01.03.\tOffice supplies\t\t45.00\t\n"
 $txt insert end "02.03.\tClient payment\t\t1200.00\n"
-$txt insert end "03.03.\tSoftware license\t299.00\t\n\n"
+$txt insert end "03.03.\tSoftware license\t\t299.00\t\n\n"
 
 $txt insert end "Presets: [join [ruledtext presetNames] {, }]\n\n"
 

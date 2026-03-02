@@ -45,10 +45,10 @@ $txt tag configure header -font {Courier 11 bold} \
 
 # -- Sample data --
 $txt insert end "Alice Miller\tBerlin\t030-12345\tVIP customer\n"
-$txt insert end "Bob Schmidt\tMunich\t089-67890\tNew contact\n"
+$txt insert end "Manfred Muster\tMunich\t089-55555\tNew contact\n"
 $txt insert end "Carol Weber\tHamburg\t040-11111\tCall back Friday\n"
 $txt insert end "David Koch\tCologne\t0221-2222\t\n"
-$txt insert end "Eva Braun\tStuttgart\t0711-3333\tPrefers email\n"
+$txt insert end "Mechtild Muster\tStuttgart\t0711-3333\tPrefers email\n"
 
 $txt insert end "\n--- Type below with Tab key ---\n\n"
 for {set i 1} {$i <= 20} {incr i} {

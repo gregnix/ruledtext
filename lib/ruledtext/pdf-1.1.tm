@@ -123,6 +123,7 @@ proc ruledtext::exportPDF {path filename args} {
     # --- Parse options ---
     set paper     "a4"
     set margin    {50 50 50 50}
+    set margin    {50 50 50 0}
     set title     ""
     set pagelabel ""
 
@@ -149,6 +150,8 @@ proc ruledtext::exportPDF {path filename args} {
     set fontActual [font actual $font]
     set family    [dict get $fontActual -family]
     set fontSize  [dict get $fontActual -size]
+    # debug korr 0.58 
+    set fontSize [expr {$fontSize * 0.58}]
     set fontWeight [dict get $fontActual -weight]
     if {$fontSize < 0} {
         # Negative = pixels, convert to points via DPI/Tk scaling
@@ -162,6 +165,8 @@ proc ruledtext::exportPDF {path filename args} {
     }
 
     set lineH     [font metrics $font -linespace]
+    # debug korr 0.58
+    set lineH     [expr {$lineH * 0.58}]
     set paperbg   $state($path,cfg,paperbg)
     set linecolor $state($path,cfg,linecolor)
     set margincolor $state($path,cfg,margincolor)
@@ -193,6 +198,8 @@ proc ruledtext::exportPDF {path filename args} {
     set vlines {}
     foreach vl $state($path,vlines) {
         lassign $vl f x
+        # debug korr 0.58
+        set x [expr {$x * 0.58}]
         set vcolor [$f cget -background]
         lappend vlines [list $x $vcolor]
     }
@@ -333,6 +340,7 @@ proc ruledtext::exportPDF {path filename args} {
         $pdf setFont $fontSize $pdfFont
 
         set textX [expr {$showmargin ? $areaX + $marginx + 12 : $areaX + 12}]
+        #set textX [expr {$showmargin ? 0 + $marginx + 0.12 : 0 + 0.12}]
         set textY [expr {$contentTop + $fontSize}]
 
         for {set i 0} {$i < $linesPerPage && $lineIdx < $totalLines} {incr i; incr lineIdx} {
