@@ -36,6 +36,12 @@ Horizontal spacing from `font metrics -linespace`,
 factor 1.5 positions lines between text rows.
 Uses namespace ensemble for clean API.
 
+## Links
+- [A vertical line in a text widget](https://wiki.tcl-lang.org/page/A+vertical+line+in+a+text+widget)
+- [place](https://www.tcl-lang.org/man/tcl/TkCmd/place.html)
+- [text](https://www.tcl-lang.org/man/tcl/TkCmd/text.html)
+
+
 ## Usage Examples
 
 ```tcl
