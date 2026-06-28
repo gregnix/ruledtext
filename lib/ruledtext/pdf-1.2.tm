@@ -1,14 +1,14 @@
-# ruledtext::pdf-1.1.tm -- PDF export for ruledtext widgets
+# ruledtext::pdf-1.2.tm -- PDF export for ruledtext widgets
 #
 # Exports the current ruledtext widget content as PDF,
 # reproducing horizontal lines, margin, vertical lines,
 # background color, and text with pagination.
 #
-# Requires: pdf4tcl 0.9+, ruledtext 1.1+
+# Requires: pdf4tcl 0.9+, ruledtext 1.2+
 #
 # Usage:
 #   tcl::tm::path add /path/to/modules
-#   package require ruledtext::pdf 1.1
+#   package require ruledtext::pdf 1.2
 #   ruledtext exportPDF .ed "output.pdf"
 #
 # Options:
@@ -34,9 +34,11 @@
 #   Tk pixels (_px2pt) and pdf4tcl getStringWidth, then scaling.
 #   This ensures text spans the correct number of grid squares.
 
-package require pdf4tcl 0.9
-package require ruledtext 1.1
-package provide ruledtext::pdf 1.1
+package require Tcl 8.6-
+package require Tk 8.6.9-
+package require pdf4tcl 0.9-
+package require ruledtext 1.2-
+package provide ruledtext::pdf 1.2
 
 namespace eval ruledtext::pdf {}
 

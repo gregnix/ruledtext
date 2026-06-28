@@ -1,14 +1,14 @@
 #!/usr/bin/env wish
 #
-# Tests for ruledtext::pdf 1.1
+# Tests for ruledtext::pdf 1.2
 #
 # Requires: Tcl/Tk 8.6+, tcltest 2.5, pdf4tcl 0.9+
 #
 # Run: wish test/test_pdf.tcl
 #
 
-package require Tcl 8.6
-package require Tk
+package require Tcl 8.6-
+package require Tk 8.6.9-
 package require tcltest 2.5
 namespace import ::tcltest::*
 
@@ -17,12 +17,21 @@ set scriptDir [file dirname [file normalize [info script]]]
 set libDir [file join $scriptDir .. lib]
 tcl::tm::path add $libDir
 
-if {[catch {package require ruledtext 1.1}]} {
-    puts "ERROR: Cannot load ruledtext 1.1"
+# Keep generated PDFs out of the working directory. tcltest's
+# temporaryDirectory defaults to the cwd, so running the suite from the
+# repo root would scatter PDFs there; pin it to test/out/ instead.
+# Create the directory first -- some tcltest versions validate -tmpdir
+# and error if it does not yet exist.
+set outDir [file join $scriptDir out]
+file mkdir $outDir
+tcltest::configure -tmpdir $outDir
+
+if {[catch {package require ruledtext 1.2-}]} {
+    puts "ERROR: Cannot load ruledtext 1.2"
     exit 1
 }
 
-if {[catch {package require ruledtext::pdf 1.1}]} {
+if {[catch {package require ruledtext::pdf 1.2-}]} {
     puts "SKIP: ruledtext::pdf not available (pdf4tcl missing?)"
     exit 0
 }

@@ -17,12 +17,12 @@
 #
 # Usage:
 #   tcl::tm::path add /path/to/modules
-#   package require ruledtext 1.1
+#   package require ruledtext 1.2
 #   ruledtext create .ed
 #   set txt [ruledtext textwidget .ed]
 #
 # Or direct source (still works):
-#   source -encoding utf-8 ruledtext-1.1.tm
+#   source -encoding utf-8 ruledtext-1.2.tm
 #   ruledtext create .ed
 #
 # Paper presets:
@@ -66,10 +66,11 @@
 #
 # All positions are in pixels, not text units.
 #
-# Tcl/Tk 8.6+
+# Tcl/Tk 8.6.9+ (Tk 8.6.9 for -insertunfocussed); runs on Tcl/Tk 9 too.
 
-package require Tk
-package provide ruledtext 1.1
+package require Tcl 8.6-
+package require Tk 8.6.9-
+package provide ruledtext 1.2
 
 namespace eval ruledtext {
     # Default configuration -- copied per instance on create.
@@ -819,7 +820,8 @@ proc ruledtext::preset {path name} {
     variable state
 
     if {![info exists presets($name)]} {
-        error "unknown preset \"$name\", available: [presetNames]"
+        return -code error -errorcode {RULEDTEXT PRESET UNKNOWN} \
+            "unknown preset \"$name\", available: [presetNames]"
     }
 
     set p $presets($name)

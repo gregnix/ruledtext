@@ -7,9 +7,10 @@
 # Demonstrates that all visual features are reproduced in PDF:
 # presets, line range, vline range, line pattern, margin.
 
-tcl::tm::path add [file join [file dirname [info script]] .. lib]
-package require ruledtext 1.1
-package require ruledtext::pdf 1.1
+set thisDir [file dirname [file normalize [info script]]]
+tcl::tm::path add [file join $thisDir .. lib]
+package require ruledtext 1.2
+package require ruledtext::pdf 1.2
 
 wm title . "PDF Export Demo"
 wm geometry . 820x620
@@ -174,7 +175,8 @@ proc exportPDF {} {
     set preset [.tb1.sel get]
     set filename "ruledtext-${preset}.pdf"
 
-    set dir [file dirname [info script]]
+    set dir [file join $::thisDir out]
+    file mkdir $dir
     set outpath [file join $dir $filename]
 
     .st configure -text "Exporting to $filename ..."

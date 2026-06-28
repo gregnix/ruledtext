@@ -4,11 +4,13 @@
 
 [![Tcl/Tk](https://img.shields.io/badge/Tcl%2FTk-8.6.9%2B-blue)](https://www.tcl.tk/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
-[![Version](https://img.shields.io/badge/version-1.1-orange)](CHANGES.md)
+[![Version](https://img.shields.io/badge/version-1.2-orange)](CHANGES.md)
 
-Single Tcl module (`ruledtext-1.1.tm`) for creating text widgets
-with horizontal lines, vertical lines, left/right margin, paper
-presets, tab sync, readonly mode, and named fonts.
+The core widget is a single, self-contained Tcl module
+(`ruledtext-1.2.tm`, no dependencies beyond Tk): horizontal lines,
+vertical lines, left/right margin, paper presets, tab sync, readonly
+mode, and named fonts. PDF export is an optional companion module
+(`ruledtext::pdf`, file `ruledtext/pdf-1.2.tm`, requires pdf4tcl).
 
 
 ## Features
@@ -58,7 +60,7 @@ ruledtext setReadonly .ed select
 ruledtext insertText .ed end "Programmatic text\n"
 
 # PDF export
-package require ruledtext::pdf 1.1
+package require ruledtext::pdf 1.2
 ruledtext exportPDF .ed "output.pdf" -paper a4 -title "Document"
 ```
 
@@ -88,6 +90,6 @@ pool management, and implementation details.
 
 ## Requirements
 
-- **Tcl/Tk 8.6.9+** (for `-insertunfocussed`, `$txt sync`)
+- **Tcl/Tk 8.6.9+ or 9.x** (Tk 8.6.9 for `-insertunfocussed`, `$txt sync`)
 - **pdf4tcl 0.9+** (optional, for PDF export via `ruledtext::pdf`)
 

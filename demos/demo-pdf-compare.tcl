@@ -5,9 +5,10 @@
 # Export erzeugt PDF im gleichen Verzeichnis.
 # Zum visuellen Vergleich: Widget und PDF nebeneinander oeffnen.
 
-tcl::tm::path add [file join [file dirname [info script]] .. lib]
-package require ruledtext 1.1
-package require ruledtext::pdf 1.1
+set thisDir [file dirname [file normalize [info script]]]
+tcl::tm::path add [file join $thisDir .. lib]
+package require ruledtext 1.2
+package require ruledtext::pdf 1.2
 
 wm title . "ruledtext PDF-Vergleich"
 wm geometry . 1050x700
@@ -176,7 +177,8 @@ proc updateMetricsDisplay {} {
 # ============================================================
 proc exportPDF {} {
     set preset [.tb.sel get]
-    set dir [file dirname [info script]]
+    set dir [file join $::thisDir out]
+    file mkdir $dir
     set filename [file join $dir "compare-${preset}.pdf"]
 
     updateMetricsDisplay

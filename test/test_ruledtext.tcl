@@ -1,14 +1,14 @@
 #!/usr/bin/env wish
 #
-# Tests for ruledtext 1.1
+# Tests for ruledtext 1.2
 #
 # Requires: Tcl/Tk 8.6+, tcltest 2.5
 #
 # Run: wish test/test_ruledtext.tcl
 #
 
-package require Tcl 8.6
-package require Tk
+package require Tcl 8.6-
+package require Tk 8.6.9-
 package require tcltest 2.5
 namespace import ::tcltest::*
 
@@ -16,7 +16,7 @@ namespace import ::tcltest::*
 set scriptDir [file dirname [file normalize [info script]]]
 set libDir [file join $scriptDir .. lib]
 tcl::tm::path add $libDir
-package require ruledtext 1.1
+package require ruledtext 1.2-
 
 # Test helper: create widget, run test, destroy
 proc withWidget {path body} {
@@ -36,6 +36,17 @@ proc withWidget {path body} {
         catch {destroy $path.sb}
         update idletasks
     }
+}
+
+# Test helper: pump the real event loop for $ms so that timer-based
+# redraws fire. The resize redraw is debounced via [after 16 ...]; plain
+# [update idletasks] runs only idle callbacks, not timers, so it would
+# never let a resize-driven redraw happen.
+proc settleLoop {{ms 120}} {
+    set ::__settle 0
+    after $ms {set ::__settle 1}
+    vwait ::__settle
+    update
 }
 
 # ==================================================================
@@ -417,57 +428,27 @@ test rt-8.7 {preset ledger enables tab sync} -body {
     }
 } -result 1
 
-test rt-8.8 {vgrid preset removes lines on shrink} -constraints knownBug -body {
-    # Create widget in toplevel for resize test
+test rt-8.8 {vgrid preset removes lines on shrink} -setup {
     toplevel .testwin
     pack [ruledtext create .testwin.ed] -fill both -expand 1
+} -body {
     wm geometry .testwin 600x400
-    update idletasks
-    
-    set txt [ruledtext textwidget .testwin.ed]
-    # Apply squared preset (has vgrid) - this creates vlines based on current width
+    settleLoop
+    # vgrid preset lays vertical lines across the current width
     ruledtext preset .testwin.ed squared
-    update idletasks
-    
-    # Count vlines at large size (should be many at 600px width)
-    # Wait a bit for vlines to be created
-    after 100
-    update idletasks
-    set vlines1 [info commands .testwin.ed.txt._vl*]
-    set count1 [llength $vlines1]
-    
-    # Manually trigger _draw to ensure vlines are created
-    # (preset might create them, but we want to be sure)
-    .testwin.ed.txt configure -width 600
-    update idletasks
-    after 100
-    update idletasks
-    
-    # Shrink widget - this should trigger _reapplyVGrid via Configure event
+    settleLoop
+    set count1 [llength [info commands .testwin.ed.txt._vl*]]
+
+    # Shrink: the <Configure> handler must drop lines beyond the new width.
+    # settleLoop pumps the loop so the resize-redraw timer actually fires.
     wm geometry .testwin 300x400
-    update idletasks
-    # Wait for resize to process
-    after 200
-    update idletasks
-    
-    # Manually trigger Configure on text widget to ensure _draw is called
-    .testwin.ed.txt configure -width 300
-    update idletasks
-    after 100
-    update idletasks
-    
-    # Count vlines after shrink (should be fewer at 300px width)
-    set vlines2 [info commands .testwin.ed.txt._vl*]
-    set count2 [llength $vlines2]
-    
+    settleLoop 200
+    set count2 [llength [info commands .testwin.ed.txt._vl*]]
+
+    expr {$count1 > 0 && $count2 < $count1}
+} -cleanup {
     destroy .testwin
     update idletasks
-    
-    # Should have fewer lines after shrink
-    # Note: If _reapplyVGrid works, count2 should be < count1
-    # If it doesn't work, both counts might be similar
-    # We check: count1 > 0 (vgrid creates lines) AND count2 < count1 (shrink removes some)
-    expr {$count1 > 0 && $count2 < $count1}
 } -result 1
 
 # ==================================================================

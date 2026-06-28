@@ -1,6 +1,6 @@
 # ruledtext Tests
 
-Test-Suite für `ruledtext 1.1` und `ruledtext::pdf 1.1`.
+Test-Suite für `ruledtext 1.2` und `ruledtext::pdf 1.2`.
 
 ## Tests ausführen
 

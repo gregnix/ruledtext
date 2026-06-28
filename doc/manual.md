@@ -1,10 +1,10 @@
-# ruledtext 1.1 — API Reference Manual
+# ruledtext 1.2 — API Reference Manual
 
 ## Synopsis
 
 ```tcl
-package require ruledtext 1.1
-package require ruledtext::pdf 1.1   ;# optional, for PDF export
+package require ruledtext 1.2
+package require ruledtext::pdf 1.2   ;# optional, for PDF export
 ```
 
 Both ensemble style and explicit style work:
@@ -486,6 +486,9 @@ The preset name is stored internally. For `squared` and
 `graph` presets, the vertical grid extends automatically
 on resize.
 
+An unknown preset name raises an error with errorCode
+`{RULEDTEXT PRESET UNKNOWN}`; the message lists the available presets.
+
 ### Built-in Presets (11)
 
 | Preset | Lines | Background | Margin | Font | Special |
@@ -528,8 +531,8 @@ with automatic pagination.
 ```tcl
 # Load modules
 tcl::tm::path add /path/to/ruledtext/lib
-package require ruledtext 1.1
-package require ruledtext::pdf 1.1
+package require ruledtext 1.2
+package require ruledtext::pdf 1.2
 
 # Create widget and add content
 ruledtext create .ed
@@ -731,4 +734,4 @@ is visual only (placed via `::place`) and does not affect text inset.
 
 ## Version
 
-ruledtext 1.1 (2026-03-01)
+ruledtext 1.2
